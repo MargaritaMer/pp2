@@ -1,0 +1,6 @@
+x = int(6.7)
+y = float(67.67)
+z = str(676.767)
+print (x)
+print (y)
+print (z)
