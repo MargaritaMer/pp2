@@ -15,7 +15,7 @@ class MickeyClock:
 
     def get_angles(self):
         now = datetime.now()
-        minutes = now.minute
+        minutes = now.minute 
         seconds = now.second
 
         angle_min = minutes * 6
