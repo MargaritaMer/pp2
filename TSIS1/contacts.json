@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Anna",
+        "email": "ann@gmail.com",
+        "birthday": "2001-05-10",
+        "group": "Friends"
+    },
+    {
+        "name": "viktor",
+        "email": "viktor8@gmail.com",
+        "birthday": "1999-01-01",
+        "group": null
+    }
+]
