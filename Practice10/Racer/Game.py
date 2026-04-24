@@ -93,6 +93,7 @@ class Player(pygame.sprite.Sprite):
 # +монета      
 P1 = Player()
 E1 = Enemy()
+E2 = Enemy()
 
 C1 = Coin()
 coins = pygame.sprite.Group()
@@ -103,9 +104,11 @@ coins.add(C1)
 
 enemies = pygame.sprite.Group()
 enemies.add(E1)
+enemies.add(E2)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(P1)
 all_sprites.add(E1)
+all_sprites.add(E2)
 all_sprites.add(C1)
 
 
