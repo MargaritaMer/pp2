@@ -16,4 +16,4 @@ CREATE TABLE IF NOT EXISTS phones (
     contact_id INTEGER REFERENCES contacts(id) ON DELETE CASCADE,
     phone VARCHAR(20),
     type VARCHAR(10) CHECK (type IN ('home','work','mobile'))
-);
+); 

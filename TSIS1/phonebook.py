@@ -20,7 +20,7 @@ def add_contact():
     print("Contact added!")
 
     cur.close()
-    conn.close()
+    conn.close() 
 
 
 def add_phone():

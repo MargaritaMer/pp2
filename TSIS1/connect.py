@@ -8,4 +8,4 @@ def get_connection():
         password=DB_PASSWORD,
         host=DB_HOST,
         port=DB_PORT
-    )
+    ) 

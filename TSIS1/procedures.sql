@@ -16,7 +16,7 @@ BEGIN
     INSERT INTO phones(contact_id, phone, type)
     VALUES (cid, p_phone, p_type);
 END;
-$$;
+$$; 
 
 
 CREATE OR REPLACE PROCEDURE move_to_group(
