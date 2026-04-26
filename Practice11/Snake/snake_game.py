@@ -80,6 +80,7 @@ class Food:
             self.color = (255, 165, 0)  # orang
         elif self.value == 3:
             self.color = (255, 255, 0) # yellow
+       
 
         
         self.spawn_time = pygame.time.get_ticks()
