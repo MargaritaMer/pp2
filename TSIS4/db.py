@@ -5,7 +5,7 @@ from datetime import datetime
 class Database:
     def __init__(self):
         try:
-            # Параметры подключения - используем простые строки ASCII
+            
             self.conn_params = {
                 'host': 'localhost',
                 'database': 'snake_game',
@@ -18,11 +18,11 @@ class Database:
             print("Подключение к PostgreSQL...")
             self.conn = psycopg2.connect(**self.conn_params)
             self.conn.autocommit = False
-            print("✅ Подключение успешно!")
+            print("Подключение успешно!")
             self.create_tables()
             
         except psycopg2.OperationalError as e:
-            print(f"❌ Ошибка подключения: {e}")
+            print(f"Ошибка подключения: {e}")
             print("\nПроверьте:")
             print("1. Запущен ли PostgreSQL сервер")
             print("2. Пароль правильный (временно используйте 'postgres')")
@@ -30,14 +30,14 @@ class Database:
             print("4. В pgAdmin проверьте подключение")
             raise
         except Exception as e:
-            print(f"❌ Неожиданная ошибка: {e}")
+            print(f"Неожиданная ошибка: {e}")
             raise
     
     def create_tables(self):
         try:
             cursor = self.conn.cursor()
             
-            # Создание таблицы players
+           
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS players (
                     id SERIAL PRIMARY KEY,
@@ -45,7 +45,7 @@ class Database:
                 )
             """)
             
-            # Создание таблицы game_sessions
+            
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS game_sessions (
                     id SERIAL PRIMARY KEY,
@@ -57,11 +57,11 @@ class Database:
             """)
             
             self.conn.commit()
-            print("✅ Таблицы созданы/проверены")
+            print("Таблицы созданы/проверены")
             cursor.close()
             
         except Exception as e:
-            print(f"❌ Ошибка при создании таблиц: {e}")
+            print(f"Ошибка при создании таблиц: {e}")
             self.conn.rollback()
             raise
     
@@ -69,14 +69,14 @@ class Database:
         cursor = self.conn.cursor()
         
         try:
-            # Ищем существующего игрока
+            
             cursor.execute("SELECT id FROM players WHERE username = %s", (username,))
             result = cursor.fetchone()
             
             if result:
                 player_id = result[0]
             else:
-                # Создаем нового игрока
+               
                 cursor.execute("INSERT INTO players (username) VALUES (%s) RETURNING id", (username,))
                 player_id = cursor.fetchone()[0]
                 self.conn.commit()
@@ -100,11 +100,11 @@ class Database:
             """, (player_id, score, level_reached))
             
             self.conn.commit()
-            print(f"✅ Результат сохранен: {username} - {score} очков")
+            print(f"Результат сохранен: {username} - {score} очков")
             cursor.close()
             
         except Exception as e:
-            print(f"❌ Ошибка сохранения результата: {e}")
+            print(f"Ошибка сохранения результата: {e}")
             self.conn.rollback()
     
     def get_top_scores(self, limit=10):
@@ -124,7 +124,7 @@ class Database:
             return results
             
         except Exception as e:
-            print(f"❌ Ошибка получения топ-списка: {e}")
+            print(f"Ошибка получения топ-списка: {e}")
             return []
     
     def get_personal_best(self, username):
@@ -143,7 +143,7 @@ class Database:
             return result if result else 0
             
         except Exception as e:
-            print(f"❌ Ошибка получения персонального рекорда: {e}")
+            print(f"Ошибка получения персонального рекорда: {e}")
             return 0
     
     def close(self):

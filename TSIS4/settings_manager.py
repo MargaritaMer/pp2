@@ -5,7 +5,7 @@ class SettingsManager:
     def __init__(self, filename="settings.json"):
         self.filename = filename
         self.default_settings = {
-            "snake_color": [0, 255, 0],  # RGB
+            "snake_color": [0, 255, 0],  
             "grid_overlay": True,
             "sound": True
         }

@@ -29,7 +29,7 @@ class SnakeGame:
         self.screen.fill(BLACK)
         self.draw_text("Enter Username:", self.title_font, WHITE, WIDTH//2 - 150, HEIGHT//2 - 100)
         
-        # Draw input box
+        # окно для никнейма
         input_box = pygame.Rect(WIDTH//2 - 150, HEIGHT//2 - 20, 300, 50)
         pygame.draw.rect(self.screen, WHITE, input_box, 2)
         
@@ -96,13 +96,13 @@ class SnakeGame:
             
             self.draw_text("TOP 10 LEADERBOARD", self.title_font, WHITE, WIDTH//2 - 150, 20)
             
-            # Draw headers
+            
             headers = ["Rank", "Username", "Score", "Level", "Date"]
             x_positions = [50, 150, 350, 500, 600]
             for i, header in enumerate(headers):
                 self.draw_text(header, self.font, WHITE, x_positions[i], 80)
             
-            # Draw scores
+            
             y = 120
             for i, score in enumerate(scores, 1):
                 username, score_val, level, played_at = score
@@ -149,7 +149,7 @@ class SnakeGame:
             sound_button.draw(self.screen, self.font)
             color_button.draw(self.screen, self.font)
             
-            # Show current color
+            
             pygame.draw.rect(self.screen, tuple(self.settings.get("snake_color")), 
                            (WIDTH//2 - 30, 310, 60, 60))
             
@@ -205,7 +205,7 @@ class SnakeGame:
             self.clock.tick(60)
     
     def run(self):
-        # Get username
+        
         while True:
             result = self.username_entry_screen()
             if result is False:

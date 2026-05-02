@@ -1,3 +1,4 @@
+
 CREATE OR REPLACE PROCEDURE add_phone(
     p_contact_name VARCHAR,
     p_phone VARCHAR,
@@ -8,15 +9,15 @@ AS $$
 DECLARE cid INTEGER;
 BEGIN
     SELECT id INTO cid FROM contacts WHERE name = p_contact_name;
-
+    
     IF cid IS NULL THEN
         RAISE EXCEPTION 'Contact not found';
     END IF;
-
+    
     INSERT INTO phones(contact_id, phone, type)
     VALUES (cid, p_phone, p_type);
 END;
-$$; 
+$$;
 
 
 CREATE OR REPLACE PROCEDURE move_to_group(
@@ -28,12 +29,12 @@ AS $$
 DECLARE gid INTEGER;
 BEGIN
     SELECT id INTO gid FROM groups WHERE name = p_group_name;
-
+    
     IF gid IS NULL THEN
         INSERT INTO groups(name) VALUES (p_group_name)
         RETURNING id INTO gid;
     END IF;
-
+    
     UPDATE contacts
     SET group_id = gid
     WHERE name = p_contact_name;
@@ -42,16 +43,66 @@ $$;
 
 
 CREATE OR REPLACE FUNCTION search_contacts(p_query TEXT)
-RETURNS TABLE(name VARCHAR, email VARCHAR, phone VARCHAR)
+RETURNS TABLE(
+    contact_name VARCHAR,
+    contact_email VARCHAR,
+    contact_phone VARCHAR,
+    contact_group VARCHAR
+)
 LANGUAGE plpgsql
 AS $$
 BEGIN
     RETURN QUERY
-    SELECT c.name, c.email, p.phone
+    SELECT DISTINCT
+        c.name,
+        c.email,
+        p.phone,
+        g.name as group_name
     FROM contacts c
     LEFT JOIN phones p ON c.id = p.contact_id
+    LEFT JOIN groups g ON c.group_id = g.id
     WHERE c.name ILIKE '%' || p_query || '%'
        OR c.email ILIKE '%' || p_query || '%'
        OR p.phone ILIKE '%' || p_query || '%';
+END;
+$$;
+
+
+CREATE OR REPLACE FUNCTION get_contacts_by_group(p_group_name VARCHAR)
+RETURNS TABLE(
+    contact_name VARCHAR,
+    contact_email VARCHAR,
+    contact_birthday DATE
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT c.name, c.email, c.birthday
+    FROM contacts c
+    JOIN groups g ON c.group_id = g.id
+    WHERE g.name = p_group_name
+    ORDER BY c.name;
+END;
+$$;
+
+
+CREATE OR REPLACE FUNCTION get_contacts_paginated(
+    p_limit INTEGER,
+    p_offset INTEGER
+)
+RETURNS TABLE(
+    contact_name VARCHAR,
+    contact_email VARCHAR,
+    contact_birthday DATE
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN QUERY
+    SELECT c.name, c.email, c.birthday
+    FROM contacts c
+    ORDER BY c.name
+    LIMIT p_limit OFFSET p_offset;
 END;
 $$;

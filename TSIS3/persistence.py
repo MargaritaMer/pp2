@@ -1,23 +1,22 @@
 import json
 import os
 
-# Получаем путь к папке где находится скрипт
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def get_settings_path():
-    """Возвращает полный путь к settings.json"""
     return os.path.join(BASE_DIR, "settings.json")
 
 def get_leaderboard_path():
-    """Возвращает полный путь к leaderboard.json"""
     return os.path.join(BASE_DIR, "leaderboard.json")
 
 def load_settings():
-    """Загрузка настроек из файла в папке с игрой"""
+    """Загрузка настроек из файла"""
     settings_path = get_settings_path()
     
     default_settings = {
-        "sound": True,
+        "sound_enabled": True,  
+        "music_volume": 0.5,    
+        "sfx_volume": 0.7,      
         "car_color": "red",
         "difficulty": "normal"
     }
@@ -26,7 +25,6 @@ def load_settings():
         try:
             with open(settings_path, 'r', encoding='utf-8') as f:
                 settings = json.load(f)
-                # Обновляем default_settings с загруженными значениями
                 default_settings.update(settings)
         except:
             pass
@@ -34,7 +32,7 @@ def load_settings():
     return default_settings
 
 def save_settings(settings):
-    """Сохранение настроек в файл в папке с игрой"""
+    """Сохранение настроек в файл"""
     settings_path = get_settings_path()
     
     try:
@@ -45,10 +43,8 @@ def save_settings(settings):
         return False
 
 def load_leaderboard():
-    """Загрузка таблицы рекордов из файла в папке с игрой"""
+    """Загрузка таблицы рекордов"""
     leaderboard_path = get_leaderboard_path()
-    
-    default_leaderboard = []
     
     if os.path.exists(leaderboard_path):
         try:
@@ -59,10 +55,10 @@ def load_leaderboard():
         except:
             pass
     
-    return default_leaderboard
+    return []
 
 def save_leaderboard(leaderboard):
-    """Сохранение таблицы рекордов в файл в папке с игрой"""
+    """Сохранение таблицы рекордов"""
     leaderboard_path = get_leaderboard_path()
     
     try:
@@ -73,21 +69,15 @@ def save_leaderboard(leaderboard):
         return False
 
 def add_score(leaderboard, name, score, distance):
-    """Добавление нового рекорда в таблицу"""
-    # Создаем новую запись
+    """Добавление нового рекорда"""
     new_entry = {
         "name": name,
         "score": score,
         "distance": distance
     }
     
-    # Добавляем в список
     leaderboard.append(new_entry)
-    
-    # Сортируем по убыванию очков
     leaderboard.sort(key=lambda x: x['score'], reverse=True)
-    
-    # Оставляем только топ 10
     leaderboard = leaderboard[:10]
     
     return leaderboard

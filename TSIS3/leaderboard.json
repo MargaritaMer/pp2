@@ -1,5 +1,10 @@
 [
     {
+        "name": "Lena",
+        "score": 720,
+        "distance": 2203.190000000035
+    },
+    {
         "name": "rita",
         "score": 230,
         "distance": 893.9200000000071
@@ -13,6 +18,11 @@
         "name": "77",
         "score": 150,
         "distance": 1019.1899999999828
+    },
+    {
+        "name": "67",
+        "score": 120,
+        "distance": 606.7799999999916
     },
     {
         "name": "ээ",
@@ -33,5 +43,10 @@
         "name": "rita",
         "score": 0,
         "distance": 97.0
+    },
+    {
+        "name": "k",
+        "score": 0,
+        "distance": 79.0
     }
 ]
