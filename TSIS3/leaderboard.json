@@ -5,6 +5,11 @@
         "distance": 2203.190000000035
     },
     {
+        "name": "ii",
+        "score": 320,
+        "distance": 903.8099999999843
+    },
+    {
         "name": "rita",
         "score": 230,
         "distance": 893.9200000000071
@@ -25,6 +30,16 @@
         "distance": 606.7799999999916
     },
     {
+        "name": "mark",
+        "score": 80,
+        "distance": 372.1599999999998
+    },
+    {
+        "name": "mark",
+        "score": 50,
+        "distance": 353.10000000000264
+    },
+    {
         "name": "ээ",
         "score": 40,
         "distance": 281.52000000000015
@@ -33,20 +48,5 @@
         "name": "love",
         "score": 0,
         "distance": 522.7799999999996
-    },
-    {
-        "name": "rita",
-        "score": 0,
-        "distance": 208.6199999999999
-    },
-    {
-        "name": "rita",
-        "score": 0,
-        "distance": 97.0
-    },
-    {
-        "name": "k",
-        "score": 0,
-        "distance": 79.0
     }
 ]
